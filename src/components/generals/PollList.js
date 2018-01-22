@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import utils from './utils';
 import axios from 'axios';
 
@@ -18,7 +17,6 @@ export default class PollList extends Component {
         <div className="card-body">
         <h5 className="card-title">{ item.title }</h5>
         <p className="card-text"> by: {item.userName} -- Votes: { item.votes.length }</p>
-          <Link  className="btn btn-primary" to={`/poll/${item._id}`}> See Poll </Link>
           {this.props.owner && (
             <button className="btn btn-danger" onClick={this.deleteConfirmation.bind(this)} name={item._id}> delete </button>
           )}

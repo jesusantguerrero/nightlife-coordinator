@@ -1,21 +1,15 @@
-# Voting App
+# Nightlife coordinator App
 
-It is a web application built with nodejs, mongodb, express and react for creating and sharing polls and allow other users authenticated or not to vote.
+It is a web application built with nodejs, mongodb, express and react that allow users to see the bars in their area and see how many people are going and if he ants to go.
+
+[freeCodeCamp nightlife coordinator requirements](https://www.freecodecamp.org/challenges/build-a-nightlife-coordination-app)
 
 It is part of freeCodeCamp backend certification and it meets the fallowing user stories:
 
-- User Story: As an authenticated user, I can keep my polls and come back later to access them.
+- User Story: As an unauthenticated user, I can view all bars in my area.
 
-- User Story: As an authenticated user, I can share my polls with my friends.
+- User Story: As an authenticated user, I can add myself to a bar to indicate I am going there tonight.
 
-- User Story: As an authenticated user, I can see the aggregate results of my polls.
+- User Story: As an authenticated user, I can remove myself from a bar if I no longer want to go there.
 
-- User Story: As an authenticated user, I can delete polls that I decide I don't want anymore.
-
-- User Story: As an authenticated user, I can create a poll with any number of possible items.
-
-- User Story: As an unauthenticated or authenticated user, I can see and vote on everyone's polls.
-
-- User Story: As an unauthenticated or authenticated user, I can see the results of polls in chart form. (This could be implemented using Chart.js or Google Charts.)
-
-- User Story: As an authenticated user, if I don't like the options on a poll, I can create a new option.
+- User Story: As an unauthenticated user, when I login I should not have to search again.
