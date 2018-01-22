@@ -1,0 +1,37 @@
+{
+  "name": "voting-app",
+  "version": "0.1.0",
+  "private": true,
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
+    "chart.js": "^2.7.1",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.6",
+    "mongoose": "^4.13.9",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "serve": "^6.4.4"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "serve": "node_modules/.bin/serve -s build",
+    "postinstall": "npm run build",
+    "heroku-push": "git push heroku heroku:master && heroku scale web=1",
+    "heroku-commit": "git commit -am \" build for heroku on %date% || %time% \"",
+    "build-push": "npm run heroku-commit && npm run heroku-push",
+    "heroku": "git push heroku heroku:master && heroku scale web=1 && heroku open && heroku logs --tail"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0"
+  }
+}
