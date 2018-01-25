@@ -23,17 +23,21 @@ class App extends Component {
 
         </header>
         <div className="container-fluid">
-          <i class="material-icons">add_location</i>
-          <i class="material-icons">add_location</i>
-          <i class="material-icons">add_location</i>
+          <i className="material-icons">add_location</i>
+          <i className="material-icons">add_location</i>
+          <i className="material-icons">add_location</i>
           <h2> Nightlife Coordination </h2>
-          <SearchBar/>
+          <SearchBar onSearch={this._searchPlaces}/>
         </div>
         <footer>Made with code, music and love by <a href="https:jesusantguerrero.com"> @JesusntGuerrero</a></footer>
       </div>
     );
   }
-
+  _searchPlaces = (e) => {
+    console.log(e)
+    console.log(this);
+    alert('hey')
+  }
   
   getCurrentUser() {
     axios.get('/current')

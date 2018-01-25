@@ -6,7 +6,7 @@ export default class SearchBar extends Component {
     return(
       <div className="searchbar"> 
         <input className="searchbar__input"/>
-        <button className="searchbar__button"> Search </button>
+        <button className="searchbar__button" onClick={this.props.onSearch}> <i className="material-icons">search</i> </button>
       </div>
     )
   }
