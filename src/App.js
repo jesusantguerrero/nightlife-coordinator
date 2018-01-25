@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import './assets/css/App.css';
+import SearchBar from './components/generals/SearchBar';
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class App extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // this.getCurrentUser()
   }
 
@@ -19,12 +20,16 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title"> Setup </h1>
+
         </header>
         <div className="container-fluid">
-
+          <i class="material-icons">add_location</i>
+          <i class="material-icons">add_location</i>
+          <i class="material-icons">add_location</i>
+          <h2> Nightlife Coordination </h2>
+          <SearchBar/>
         </div>
-        <footer>Made with code, music and love by <a href="https:jesusantguerrero.com">@JesusntGuerrero</a></footer>
+        <footer>Made with code, music and love by <a href="https:jesusantguerrero.com"> @JesusntGuerrero</a></footer>
       </div>
     );
   }

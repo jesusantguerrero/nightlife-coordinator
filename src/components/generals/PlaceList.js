@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import utils from './utils';
 import axios from 'axios';
 
-export default class PollList extends Component {
+export default class PlaceList extends Component {
   render() {
     return(
       <section className="pollList col-md-8">
-      <h2 className="section-title">Recent polls </h2>
-       {this.props.polls ? this.renderList() : (<div> Loading ...</div>)}
+      <h2 className="section-title">Recent bars </h2>
+       {this.props.bars ? this.renderList() : (<div> Loading ...</div>)}
       </section>
     )
   }
@@ -25,7 +25,7 @@ export default class PollList extends Component {
   }
 
   renderList(props) {
-    const list = this.props.polls.map(item => this.renderItem(item));
+    const list = this.props.bars.map(item => this.renderItem(item));
     if (list.length > 0) {
       return (<div>{list}</div>);
     }

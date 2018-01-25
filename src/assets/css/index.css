@@ -4,8 +4,16 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+
+
 :root{
   --primary-color: #084177;
+  --bg-color:  rgb(9, 93, 172);
+}
+
+html, body {
+  background:var(--bg-color);
+  color: white;
 }
 
 .navbar-dark {
@@ -16,8 +24,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('./../img/background.jpg');
-  background-size: cover
+  background: var(--bg-color);
 }
 
 .container-fluid {
@@ -51,19 +58,6 @@ header {
   transition: all .5s ease;
 }
 
-.btn-primary {
-  background: linear-gradient(143deg, #084177, rgb(130, 142, 232));
-}
-
-
-.btn-primary:hover {
-  background: linear-gradient(143deg, #095dac, rgb(103, 159, 243));
-}
-
-.btn-danger {
-  background: linear-gradient(143deg, #77081c, rgb(218, 5, 26));
-}
-
 .card .btn:last-child {
   margin-left: 15px
 }
@@ -87,6 +81,6 @@ footer {
   height: 38px;
   border-top: 1px solid #ccc;
   padding-top: 10px;
-  background: #ddd;
-  color: #555
+  background: var(--bg-color);
+  color: white;
 }

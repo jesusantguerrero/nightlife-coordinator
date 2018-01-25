@@ -1,0 +1,14 @@
+.searchbar {
+
+}
+
+.searchbar__input {
+  background: var(--primary-color);
+  border: none;
+  border-bottom: 1px solid #ccc;
+  color: white;
+}
+
+.searchbar__button {
+
+}
