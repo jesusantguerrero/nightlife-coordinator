@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+const yelp = require('yelp-fusion');
 /* GET home page. */
 router.get('/search', function(req, res, next) {
-  axios.default.get('https://api.yelp.com/v3/businesses/search?location="la romana"', {
-    auth: {
-      API_KEY: process.env.YELP_API_KEY
-    }
-  }).then((result) => {
-    res.json(result);
-  }).catch((err) => {
-    res.json(err);
+  const client = yelp.client(process.env.YELP_API_KEY);
+
+  client.search({ location: req.params.location || 'La Romana' })
+  .then((result) => {
+    res.json(result.jsonBody)
+  })
+  .catch((err) => {
+    console.log(err);
+    res.end('error')
   })
 });
 
