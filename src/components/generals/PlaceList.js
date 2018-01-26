@@ -7,7 +7,9 @@ export default class PlaceList extends Component {
   render() {
     return(
       <section className="place-list row justify-content-center col-md-12">
-        <h2 className="section-title"> { this.props.title || 'Lista de Bares' } </h2>
+        { this.places && (
+          <h2 className="section-title"> { this.props.title || 'Lista de Bares' } </h2>
+        )} 
         {this.props.places ? this.renderList() : (<div> Loading ...</div>)}
       </section>
     )
@@ -16,6 +18,7 @@ export default class PlaceList extends Component {
   renderItem(item, empty) {
     return <div className="card w-90 outline-dark" key={item.id}>
         <div className="card-body">
+        <img src={ item.image_url }/>
         <h5 className="card-title text-primary">{ item.name }</h5>
         <p className="card-text"></p>
           <button className="btn btn-danger" onClick={this.deleteConfirmation.bind(this)} name={item.id}> Going </button>
@@ -28,7 +31,6 @@ export default class PlaceList extends Component {
     if (list.length > 0) {
       return (<div>{list}</div>);
     }
-    return (<div className="card w-90 outline-dark"> Nothing to show yet</div>);
   }
 
   deleteConfirmation(e) {

@@ -55,7 +55,6 @@ header {
 }
 
 .btn {
-  border-radius: 10px;
   transition: all .5s ease;
 }
 
@@ -88,4 +87,8 @@ footer {
   padding-top: 10px;
   background: var(--bg-color);
   color: white;
+}
+
+footer a {
+  color: #ddd;
 }
