@@ -3,17 +3,25 @@ import axios from 'axios';
 
 import './assets/css/App.css';
 import SearchBar from './components/generals/SearchBar';
+import PlaceList from './components/generals/PlaceList';
+import fakeData from './components/generals/FakeRes';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
-    }
+      user: null,
+      searchValue: '',
+      fakeData,
+      places: {
+        businesses: []
+      }
+    };
   }
 
   componentDidMount() {
-    // this.getCurrentUser()
+   const searchValue = localStorage.getItem('searchValue');
+   this.setState({ searchValue: searchValue })
   }
 
   render() {
@@ -27,16 +35,29 @@ class App extends Component {
           <i className="material-icons">add_location</i>
           <i className="material-icons">add_location</i>
           <h2> Nightlife Coordination </h2>
-          <SearchBar onSearch={this._searchPlaces}/>
+          <SearchBar onSearch={this._searchPlaces} searchValue={this.state.searchValue} onChange={this._onChangeSearchValue}/>
+          <PlaceList places={this.state.places.businesses}/>
         </div>
         <footer>Made with code, music and love by <a href="https:jesusantguerrero.com"> @JesusntGuerrero</a></footer>
       </div>
     );
   }
   _searchPlaces = (e) => {
-    console.log(e)
-    console.log(this);
-    alert('hey')
+   axios.get('/places/search', {
+     params: {
+       location: this.state.searchValue
+     }
+   }).then((res) => {
+      let places = res.data;
+      places = places || { businesses : [] };
+      this.setState({ places : places })
+   })
+  }
+
+  _onChangeSearchValue = (e) => {
+    const { value }  = e.target;
+    localStorage.setItem('searchValue', value)
+    this.setState({ searchValue: value });
   }
   
   getCurrentUser() {
@@ -46,7 +67,7 @@ class App extends Component {
           this.setState({ user: res.data.user }); 
           window.User = res.data.user;
         }
-      })
+      });
   }
 }
 

@@ -33,12 +33,13 @@ header {
 
 .section-title {
   margin: 10px 0 50px 0;
-  color: var(--primary-color);
+  color: white;
   font-weight: bolder
 }
 
 .card, .tab-pane {
   margin: 10px 0;
+  color: #444;
 }
 
 #mainNavigation nav{
@@ -60,6 +61,10 @@ header {
 
 .card .btn:last-child {
   margin-left: 15px
+}
+
+.card-title {
+  color: #444;
 }
 
 .append .btn {

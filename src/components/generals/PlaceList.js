@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
 import utils from './utils';
 import axios from 'axios';
+import './../../assets/css/PlaceList.css';
 
 export default class PlaceList extends Component {
   render() {
     return(
-      <section className="pollList col-md-8">
-      <h2 className="section-title">Recent bars </h2>
-       {this.props.bars ? this.renderList() : (<div> Loading ...</div>)}
+      <section className="place-list row justify-content-center col-md-12">
+        <h2 className="section-title"> { this.props.title || 'Lista de Bares' } </h2>
+        {this.props.places ? this.renderList() : (<div> Loading ...</div>)}
       </section>
     )
   }
   
   renderItem(item, empty) {
-    return <div className="card w-90 outline-dark" key={item._id}>
+    return <div className="card w-90 outline-dark" key={item.id}>
         <div className="card-body">
-        <h5 className="card-title">{ item.title }</h5>
-        <p className="card-text"> by: {item.userName} -- Votes: { item.votes.length }</p>
-          {this.props.owner && (
-            <button className="btn btn-danger" onClick={this.deleteConfirmation.bind(this)} name={item._id}> delete </button>
-          )}
+        <h5 className="card-title text-primary">{ item.name }</h5>
+        <p className="card-text"></p>
+          <button className="btn btn-danger" onClick={this.deleteConfirmation.bind(this)} name={item.id}> Going </button>
         </div>
       </div>
   }
 
   renderList(props) {
-    const list = this.props.bars.map(item => this.renderItem(item));
+    const list = this.props.places.map(item => this.renderItem(item));
     if (list.length > 0) {
       return (<div>{list}</div>);
     }
