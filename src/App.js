@@ -13,9 +13,7 @@ class App extends Component {
       user: null,
       searchValue: localStorage.getItem('searchValue') || '',
       fakeData,
-      places: {
-        businesses: []
-      }
+      places: []
     };
   }
 
@@ -32,13 +30,13 @@ class App extends Component {
         <div className="container-fluid">
           <h2> Nightlife Coordination </h2>
           <SearchBar onSearch={this._searchPlaces} searchValue={this.state.searchValue} onChange={this._onChangeSearchValue}/>
-          <PlaceList places={this.state.places.businesses} itemClicked={this._addUserToPlace}/>
+          <PlaceList places={this.state.places} itemClicked={this._addUserToPlace}/>
         </div>
         <footer>Made with code, music and love by <a href="https:jesusantguerrero.com"> @JesusntGuerrero</a></footer>
       </div>
     );
   }
-  
+
   _searchPlaces = (e) => {
    axios.get('/places/search', {
      params: {
@@ -46,7 +44,7 @@ class App extends Component {
      }
    }).then((res) => {
       let places = res.data;
-      places = places || { businesses : [] };
+      places = places;
       this.setState({ places : places })
    })
   }
@@ -60,7 +58,7 @@ class App extends Component {
   _addUserToPlace = (e) => {
     const data = {
       location: this.state.searchValue,
-      userId: 0
+      userId: 1
     }
 
     const form = `data=${JSON.stringify(data)}`;
