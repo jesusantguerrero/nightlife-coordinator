@@ -31,7 +31,7 @@ export default class PlaceList extends Component {
             <p className="card-text"> { item.phone }</p>
           </div>
           <div className="col-md-3">
-            <button className="btn btn-danger" onClick={ this.props.itemClicked } name={ item.id }> Going </button>
+            <button className={this.classes(item)} onClick={ this.props.itemClicked } name={ item.id }> Going: { this.countUsers(item)} </button>
           </div>
         </div>
       </div>
@@ -42,5 +42,17 @@ export default class PlaceList extends Component {
     if (list.length > 0) {
       return (<div className="place-list-container">{list}</div>);
     }
+  }
+
+  countUsers(item) {
+    return item.users ? item.users.length : 0;
+  }
+
+  isCurrentUser(item) {
+    return item.users ? item.users.includes(1) : false;
+  }
+
+  classes(item) {
+   return this.isCurrentUser(item) ? 'btn btn-primary' : 'btn btn-success';
   }
 }
