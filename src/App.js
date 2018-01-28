@@ -31,9 +31,6 @@ class App extends Component {
 
         </header>
         <div className="container-fluid">
-          <i className="material-icons">add_location</i>
-          <i className="material-icons">add_location</i>
-          <i className="material-icons">add_location</i>
           <h2> Nightlife Coordination </h2>
           <SearchBar onSearch={this._searchPlaces} searchValue={this.state.searchValue} onChange={this._onChangeSearchValue}/>
           <PlaceList places={this.state.places.businesses}/>

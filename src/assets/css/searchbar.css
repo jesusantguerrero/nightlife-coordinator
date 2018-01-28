@@ -28,4 +28,10 @@
 .searchbar__button:hover {
   background: var(--primary-color);
   color: white;
- }
+}
+
+@media (max-width: 768px) {
+  .searchbar {
+    padding: 0 5%;
+  }
+}
