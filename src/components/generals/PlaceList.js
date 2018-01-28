@@ -24,7 +24,7 @@ export default class PlaceList extends Component {
               <span className="image_name"></span>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 text-align-left">
             <h5 className="card-title text-primary">{ item.name }</h5>
             <div className="stars_container"> { item.rating }</div>
             <p className="direction_container"> 

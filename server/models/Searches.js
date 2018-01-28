@@ -1,9 +1,29 @@
 const mongoose = require('mongoose');
 
-const Searches = mongoose.model('Searches', new mongoose.Schema({
-  id: { type: mongoose.Types.ObjectId, autoincrement: true },
-  location: String,
-}));
+class Searches {
+  constructor() {
+    this.model = mongoose.model('Searches', new mongoose.Schema({
+      location: String,
+    }));
+  }
 
-module.exports  = Searches;
+  create(location) {
+    return this.model.create({ location: location }).then((search) => {
+      return search;
+    })
+  }
+
+  findOrCreate(location) {
+    return this.model.findOne({ location : location }).then((search) => {
+      if (search) {
+        console.log('here')
+        return search;
+      }
+      console.log('there')
+      return this.create(location);
+    })
+  }
+}
+
+module.exports  = new Searches();
 
