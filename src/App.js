@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: null,
-      searchValue: '',
+      searchValue: localStorage.getItem('searchValue') || '',
       fakeData,
       places: {
         businesses: []
@@ -20,8 +20,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-   const searchValue = localStorage.getItem('searchValue');
-   this.setState({ searchValue: searchValue })
+   this._searchPlaces();
   }
 
   render() {
@@ -33,12 +32,13 @@ class App extends Component {
         <div className="container-fluid">
           <h2> Nightlife Coordination </h2>
           <SearchBar onSearch={this._searchPlaces} searchValue={this.state.searchValue} onChange={this._onChangeSearchValue}/>
-          <PlaceList places={this.state.places.businesses}/>
+          <PlaceList places={this.state.places.businesses} itemClicked={this._addUserToPlace}/>
         </div>
         <footer>Made with code, music and love by <a href="https:jesusantguerrero.com"> @JesusntGuerrero</a></footer>
       </div>
     );
   }
+  
   _searchPlaces = (e) => {
    axios.get('/places/search', {
      params: {
@@ -55,6 +55,20 @@ class App extends Component {
     const { value }  = e.target;
     localStorage.setItem('searchValue', value)
     this.setState({ searchValue: value });
+  }
+
+  _addUserToPlace = (e) => {
+    const data = {
+      location: this.state.searchValue,
+      userId: 0
+    }
+
+    const form = `data=${JSON.stringify(data)}`;
+
+    axios.post(`/places/add/${e.target.name}`, form)
+      .then(() => {
+        this._searchPlaces();
+      })
   }
   
   getCurrentUser() {

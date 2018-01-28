@@ -33,7 +33,7 @@ export default class PlaceList extends Component {
             <p className="card-text"> { item.phone }</p>
           </div>
           <div className="col-md-3">
-            <button className="btn btn-danger" onClick={this.deleteConfirmation.bind(this)} name={item.id}> Going </button>
+            <button className="btn btn-danger" onClick={this.props.itemClicked} name={item.id}> Going </button>
           </div>
         </div>
       </div>
@@ -45,22 +45,4 @@ export default class PlaceList extends Component {
       return (<div className="place-list-container">{list}</div>);
     }
   }
-
-  deleteConfirmation(e) {
-    e.target.classList.add('to-delete');
-    const result = window.confirm('Are you sure?');
-    if (result) {
-      this.delete(e)
-    }
-    
-    e.target.classList.remove('to-delete');
-  }
-
-  delete(e) {
-    axios.delete(`/api/poll/delete/${e.target.name}`)
-      .then(() => {
-        this.props.afterDelete.call();
-      })
-  }
-
 }
