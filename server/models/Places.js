@@ -29,8 +29,10 @@ class Places {
   }
 
   addUser(id, userId) {
+    console.log('adding this vaina')
     return this.model.findOne({ id: id }).then((place) => {
       place.users.push(userId);
+      return this.model.findOneAndUpdate({ id: id }, { users: place.users })
     })
   }
 
@@ -40,7 +42,7 @@ class Places {
       const index = userList.indexOf(userId);
       userList.splice(index, 1);
       if (userList.length > 0) {
-        return this.model.findByIdAndUpdate({ id: id } , { users: userList })
+        return this.model.findOneAndUpdate({ id: id } , { users: userList })
       } else {
         return this.deletePlace(id);
       }
