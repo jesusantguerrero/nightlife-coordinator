@@ -32,7 +32,7 @@ class App extends Component {
         <div className="container-fluid">
           <h2> Nightlife Coordination </h2>
           <SearchBar onSearch={this._searchPlaces} searchValue={this.state.searchValue} onChange={this._onChangeSearchValue}/>
-          <PlaceList places={this.state.places} itemClicked={this._addUserToPlace}/>
+          <PlaceList places={this.state.places} itemClicked={this._handleItemClick} user={this.state.user}/>
         </div>
         <footer>Made with code, music and love by <a href="https:jesusantguerrero.com"> @JesusntGuerrero</a></footer>
       </div>
@@ -60,12 +60,21 @@ class App extends Component {
     this.setState({ searchValue: value });
   }
 
-  _addUserToPlace = (e) => {
-    const data = {
-      location: this.state.searchValue,
-      userId: 1
+  _handleItemClick = (e) => {
+    const { user } = this.state; 
+    if (!user) {
+      window.location.href = '/auth/twitter';
+    } else {
+      this._addUserToPlace(e);
     }
+  }
 
+  _addUserToPlace = (e) => {
+    const {user , searchValue} = this.state;
+    const data = {
+      location: searchValue,
+      userId: user.id
+    }
     const form = `data=${JSON.stringify(data)}`;
 
     axios.post(`/places/add/${e.target.name}`, form)

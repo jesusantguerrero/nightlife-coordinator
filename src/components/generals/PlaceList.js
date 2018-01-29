@@ -47,7 +47,8 @@ export default class PlaceList extends Component {
   }
 
   isCurrentUser(item) {
-    return item.users ? item.users.includes(1) : false;
+    const { user } = this.props;
+    return item.users && user ? item.users.includes(user.id) : false;
   }
 
   countStars(rating) {

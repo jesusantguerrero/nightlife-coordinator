@@ -6,7 +6,7 @@ const User = require('./models/User');
 passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: "https://ic-voting.herokuapp.com/auth/twitter/callback/"
+    callbackURL: `${process.env.ROOT}/auth/twitter/callback/`
   },
 
   (token, tokenSecret, profile, done) => {
