@@ -5,6 +5,7 @@ import './assets/css/App.css';
 import SearchBar from './components/generals/SearchBar';
 import PlaceList from './components/generals/PlaceList';
 import fakeData from './components/generals/FakeRes';
+import { setInterval } from 'timers';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class App extends Component {
       user: null,
       searchValue: localStorage.getItem('searchValue') || '',
       fakeData,
-      places: []
+      places: [],
+      searchig: false
     };
   }
 
@@ -38,13 +40,17 @@ class App extends Component {
   }
 
   _searchPlaces = (e) => {
-   axios.get('/places/search', {
-     params: {
-       location: this.state.searchValue
-     }
-   }).then((res) => {
-      let places = res.data;
-      this.setState({ places : places })
+    this.setState({ searchig: true})
+    this.loadButton(e);
+    axios.get('/places/search', {
+      params: {
+        location: this.state.searchValue
+      }
+    }).then((res) => {
+      let places = res.data || this.state.fakeData.businesses;
+      this.setState({ places : places, searchig: false });
+    }).catch((err) => {
+      this.setState({ searchig: false})
    })
   }
 
@@ -76,6 +82,22 @@ class App extends Component {
           window.User = res.data.user;
         }
       });
+  }
+
+  loadButton(e) {    
+    let strong = false;
+    const button = (e) ? e.target : document.querySelector('.searchbar__button');
+
+    button.classList.add('btn-danger');
+    const timer = setInterval(() => {
+      strong = !strong
+      if (this.state.searchig) {
+        button.innerHTML= `<i class="material-icons">${ strong ? 'hdr_strong' : 'hdr_weak'}</i>`;
+      } else {
+        clearInterval(timer)
+        button.innerHTML= `<i class="material-icons">search</i>`;
+      }
+    }, 1000);
   }
 }
 

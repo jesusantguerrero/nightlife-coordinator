@@ -5,9 +5,6 @@ export default class PlaceList extends Component {
   render() {
     return(
       <section className="place-list row justify-content-center col-md-12">
-        { this.props.places && (
-          <h2 className="section-title"> { this.props.title || 'Lista de Bares' } </h2>
-        )} 
         {this.props.places ? this.renderList() : (<div> Loading ...</div>)}
       </section>
     )
@@ -22,9 +19,9 @@ export default class PlaceList extends Component {
               <span className="image_name"></span>
             </div>
           </div>
-          <div className="col-md-6 text-align-left">
+          <div className="col-md-6 card_details">
             <h5 className="card-title text-primary">{ item.name }</h5>
-            <div className="stars_container"> { item.rating }</div>
+            <div className="stars_container"> {this.countStars(item.rating)}|{ item.rating }</div>
             <p className="direction_container"> 
               { item.location.display_address.join() }
             </p>
@@ -38,6 +35,7 @@ export default class PlaceList extends Component {
   }
 
   renderList(props) {
+    console.log(this.props.places);
     const list = this.props.places.map(item => this.renderItem(item));
     if (list.length > 0) {
       return (<div className="place-list-container">{list}</div>);
@@ -50,6 +48,19 @@ export default class PlaceList extends Component {
 
   isCurrentUser(item) {
     return item.users ? item.users.includes(1) : false;
+  }
+
+  countStars(rating) {
+    const stars = [];
+    for (let i = 0; i < Math.floor(rating); i+= 1) {
+      stars.push(<i className="material-icons text-warning"> star </i>)
+    }
+
+    if (rating.toString().includes('.')) {
+      stars.push(<i className="material-icons text-warning"> star_half </i>);
+    }
+
+    return stars;
   }
 
   classes(item) {

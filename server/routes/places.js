@@ -30,7 +30,7 @@ router.get('/search', function(req, res, next) {
     })
 
     .catch((err) => {
-      res.end()
+      res.json(500, err)
     })
 
   });
