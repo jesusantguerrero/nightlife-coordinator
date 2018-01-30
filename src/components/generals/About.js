@@ -8,7 +8,7 @@ export default class About extends Component {
         <h4> Powered by 
           <a href="https://www.yelp.com/" > Yelp Fusion Api</a>
         </h4>
-        <img className="logo" src={logo}/>
+        <img className="logo" src={logo} alt="yelp-logo"/>
       </div>
     )
   }

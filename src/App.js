@@ -24,8 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getCurrentUser();
-    this._searchPlaces();
+    this.boot();
   }
 
   render() {
@@ -56,7 +55,17 @@ class App extends Component {
     );
   }
 
+  boot() {
+    const { searchValue } = this.state;
+    if (searchValue) {
+      this._searchPlaces();
+    }
+    this.getCurrentUser();
+  }
+
   _searchPlaces = (e) => {
+    
+
     this.setState({ searchig: true})
     this.loadButton(e);
     
@@ -66,7 +75,7 @@ class App extends Component {
       }
     })
       .then((res) => {
-        let places = res.data || this.state.fakeData.businesses;
+        let places = res.data;
         this.setState({ places : places, searchig: false });
       })
       .catch((err) => {
