@@ -29,7 +29,6 @@ class Places {
   }
 
   addUser(id, userId) {
-    console.log('adding this vaina')
     return this.model.findOne({ id: id }).then((place) => {
       place.users.push(userId);
       return this.model.findOneAndUpdate({ id: id }, { users: place.users })

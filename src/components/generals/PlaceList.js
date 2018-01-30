@@ -21,7 +21,7 @@ export default class PlaceList extends Component {
           </div>
           <div className="col-md-6 card_details">
             <h5 className="card-title text-primary">{ item.name }</h5>
-            <div className="stars_container"> {this.countStars(item.rating)}|{ item.rating }</div>
+            <div className="stars_container"> {this.countStars(item.rating)}</div>
             <p className="direction_container"> 
               { item.location.display_address.join() }
             </p>
@@ -35,7 +35,6 @@ export default class PlaceList extends Component {
   }
 
   renderList(props) {
-    console.log(this.props.places);
     const list = this.props.places.map(item => this.renderItem(item));
     if (list.length > 0) {
       return (<div className="place-list-container">{list}</div>);
@@ -65,6 +64,6 @@ export default class PlaceList extends Component {
   }
 
   classes(item) {
-   return this.isCurrentUser(item) ? 'btn btn-primary' : 'btn btn-success';
+   return this.isCurrentUser(item) ? 'btn btn-primary' : 'btn bg-dark';
   }
 }

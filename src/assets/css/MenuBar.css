@@ -1,0 +1,29 @@
+.my-nav {
+  width: 100%;
+  height: 42px;
+  display: flex;
+  padding: 0 20%;
+  margin: 0 0 0 0;
+}
+
+.my-nav .nav-link {
+  border-radius: 0 0 0 0;
+  background: #fff;
+  color: var(--bg-color);
+}
+.my-nav .nav-link:hover {
+  border-radius: 0 0 0 0;
+  background: #ddd;
+}
+
+.my-nav .nav-link.active{
+  background: rgb(0, 132, 255);
+  color: #fff;
+  font-weight: bolder;
+}
+
+@media (max-width: 768px) {
+  .my-nav {
+    padding: 0 5%;
+  }
+}

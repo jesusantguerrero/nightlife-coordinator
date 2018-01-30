@@ -34,15 +34,28 @@ img {
   height: 100%;
   top: 0;
   left: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, .4), rgba(255, 255, 255, .5));
+  background: linear-gradient( transparent,  rgba(0, 0, 0, .8));
+}
+
+.card-body {
 }
 
 .card_details {
   text-align: left;
+  padding-left: 15px;
 }
 
 @media (max-width: 768px) {
   .place-list-container {
-    padding: 0 5%;
+    padding: 0 20px;
   }
+
+  .card_details {
+    text-align: center;
+  }
+
+  .image_wrapper {
+    width: 100%;
+  }
+  
 }

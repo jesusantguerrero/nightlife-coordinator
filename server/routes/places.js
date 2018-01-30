@@ -43,8 +43,8 @@ router.get('/', (req, res) => {
   })
 })
 
-router.get('/list', (req, res) => {
-  Places.model.find().then((result) => {
+router.get('/user/:userId', (req, res) => {
+  Places.model.find({ users: req.params.userId }).then((result) => {
     res.json(result);
   })
 })

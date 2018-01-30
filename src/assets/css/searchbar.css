@@ -3,7 +3,7 @@
   height: 42px;
   display: flex;
   padding: 0 20%;
-  margin: 30px 0;
+  margin-top: 30px;
 }
 
 .searchbar__input {
@@ -23,11 +23,12 @@
   width: 70px;
   cursor: pointer;
   transition: all ease .3s;
+  border-bottom: 1px solid var(--bg-color)
 }
 
 .searchbar__button:hover {
-  background: var(--primary-color);
-  color: white;
+  background: #ddd;
+  color: var(--bg-color);
 }
 
 @media (max-width: 768px) {

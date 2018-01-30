@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import './assets/css/App.css';
+import About from './components/generals/About';
 import SearchBar from './components/generals/SearchBar';
+import MenuBar from './components/generals/MenuBar';
 import PlaceList from './components/generals/PlaceList';
 import fakeData from './components/generals/FakeRes';
 import { setInterval } from 'timers';
@@ -15,12 +17,15 @@ class App extends Component {
       searchValue: localStorage.getItem('searchValue') || '',
       fakeData,
       places: [],
-      searchig: false
+      userPlaces: [],
+      searchig: false,
+      mode: 'search',
     };
   }
 
   componentDidMount() {
-   this._searchPlaces();
+    this.getCurrentUser();
+    this._searchPlaces();
   }
 
   render() {
@@ -32,9 +37,21 @@ class App extends Component {
         <div className="container-fluid">
           <h2> Nightlife Coordination </h2>
           <SearchBar onSearch={this._searchPlaces} searchValue={this.state.searchValue} onChange={this._onChangeSearchValue}/>
-          <PlaceList places={this.state.places} itemClicked={this._handleItemClick} user={this.state.user}/>
+          <MenuBar user={this.state.user} mode={this.state.mode} changeMode={this._changeMode}/>
+
+          { this.state.mode === 'search' && (
+            <PlaceList places={this.state.places} itemClicked={this._handleItemClick} user={this.state.user}/>
+          )}
+          { this.state.mode === 'my-bars' && (
+            <PlaceList places={this.state.userPlaces} itemClicked={this._handleItemClick} user={this.state.user}/>
+          )}
+          
+          { this.state.mode === 'about' && (
+            <About/>
+          )}
+
         </div>
-        <footer>Made with code, music and love by <a href="https:jesusantguerrero.com"> @JesusntGuerrero</a></footer>
+       
       </div>
     );
   }
@@ -42,16 +59,29 @@ class App extends Component {
   _searchPlaces = (e) => {
     this.setState({ searchig: true})
     this.loadButton(e);
+    
     axios.get('/places/search', {
       params: {
         location: this.state.searchValue
       }
-    }).then((res) => {
-      let places = res.data || this.state.fakeData.businesses;
-      this.setState({ places : places, searchig: false });
-    }).catch((err) => {
-      this.setState({ searchig: false})
-   })
+    })
+      .then((res) => {
+        let places = res.data || this.state.fakeData.businesses;
+        this.setState({ places : places, searchig: false });
+      })
+      .catch((err) => {
+        this.setState({ searchig: false})
+      })
+  }
+
+  _getUserPlaces = () => {
+    const { user } = this.state;
+    if (user) {
+      axios.get(`/places/user/${user.id}`)
+      .then((res) => {
+        this.setState({ userPlaces: res.data });
+      })
+    }
   }
 
   _onChangeSearchValue = (e) => {
@@ -80,11 +110,15 @@ class App extends Component {
     axios.post(`/places/add/${e.target.name}`, form)
       .then(() => {
         this._searchPlaces();
+        this._getUserPlaces();
       })
+  }
+  _changeMode = (e) => {
+    this.setState({ mode: e.target.name })
   }
   
   getCurrentUser() {
-    axios.get('/current')
+    axios.get('/auth/current')
       .then((res) => {
         if (res.data.user) {
           this.setState({ user: res.data.user }); 

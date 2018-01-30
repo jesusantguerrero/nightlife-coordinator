@@ -7,8 +7,8 @@
 
 
 :root{
-  --primary-color: #084177;
-  --bg-color:  rgb(9, 93, 172);
+  --primary-color: #272829;
+  --bg-color:  #4f5255;
 }
 
 html, body {
@@ -46,16 +46,10 @@ header {
   margin-left: auto;
 }
 
-.bg-dark {
-  background: linear-gradient(143deg, #084177, rgb(49, 63, 172))
-}
-
-.bg-transparent{
-  background: linear-gradient(143deg, #084177, rgb(130, 142, 232))
-}
-
 .btn {
   transition: all .5s ease;
+  border-radius: 0 0 0 0;
+  color: white;
 }
 
 .card .btn:last-child {

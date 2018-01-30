@@ -11,10 +11,7 @@
     "eject": "react-scripts eject",
     "serve": "node_modules/.bin/serve -s build",
     "postinstall": "npm run build",
-    "heroku-push": "git push heroku heroku:master && heroku scale web=1",
-    "heroku-commit": "git commit -am \" build for heroku on %date% || %time% \"",
-    "build-push": "npm run heroku-commit && npm run heroku-push",
-    "heroku": "git push heroku heroku:master && heroku scale web=1 && heroku open && heroku logs --tail"
+    "heroku": "git push heroku master && heroku scale web=1 && heroku open && heroku logs --tail"
   },
   "dependencies": {
     "axios": "^0.17.1",
