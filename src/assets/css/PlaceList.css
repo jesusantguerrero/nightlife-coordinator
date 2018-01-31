@@ -2,6 +2,30 @@
   flex-direction: column;
   align-items: center;
   margin: 0 0 0 0;
+  padding: 0;
+}
+
+.card {
+  border-radius: 0;
+}
+
+.card.loading {
+  position: relative;
+  opacity: .8;
+  overflow: hidden;
+}
+
+.card.loading:after {
+  position: absolute;
+  content: '';
+  bottom: 0;
+  height: 3px;
+  width: 30%;
+  animation: loading 5s infinite;
+}
+
+.card-body.row {
+  margin: 0;
 }
 
 .place-list-container {
@@ -45,9 +69,22 @@ img {
   padding-left: 15px;
 }
 
+@keyframes loading {
+  0% {
+    left: 0%;
+    background: var(--primary-color)
+  }
+
+  100% {
+    left: 100%;
+    background: #555;
+  }
+}
+
 @media (max-width: 768px) {
   .place-list-container {
-    padding: 0 20px;
+    padding: 0 5%;
+    width: 100%;
   }
 
   .card_details {
@@ -56,6 +93,14 @@ img {
 
   .image_wrapper {
     width: 100%;
+  }
+
+  .card-title {
+    padding-top: 20px;
+  }
+
+  .card button {
+    margin-top: 5px;
   }
   
 }

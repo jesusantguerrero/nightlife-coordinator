@@ -112,16 +112,18 @@ class App extends Component {
     const {user , searchValue} = this.state;
     const data = {
       location: searchValue,
-      userId: user.id
-    }
+      userId: user.id,
+    };
     const form = `data=${JSON.stringify(data)}`;
 
+    this.loadCard(e);
     axios.post(`/places/add/${e.target.name}`, form)
       .then(() => {
         this._searchPlaces();
         this._getUserPlaces();
-      })
+      });
   }
+
   _changeMode = (e) => {
     this.setState({ mode: e.target.name })
   }
@@ -136,18 +138,29 @@ class App extends Component {
       });
   }
 
-  loadButton(e) {    
+  loadButton(e, mode) {    
     let strong = false;
-    const button = (e) ? e.target : document.querySelector('.searchbar__button');
+    const button = document.querySelector('.searchbar__button');
 
-    button.classList.add('btn-danger');
     const timer = setInterval(() => {
-      strong = !strong
+      strong = !strong;
       if (this.state.searchig) {
-        button.innerHTML= `<i class="material-icons">${ strong ? 'hdr_strong' : 'hdr_weak'}</i>`;
+        button.innerHTML= `<i class="material-icons">${strong ? 'hdr_strong' : 'hdr_weak'}</i>`;
       } else {
         clearInterval(timer)
-        button.innerHTML= `<i class="material-icons">search</i>`;
+        button.innerHTML= (e) ? '' : '<i class="material-icons">search</i>';
+      }
+    }, 1000);
+  }
+
+  loadCard(e) {
+    const card = e.target.parentNode.parentNode.parentNode;
+    card.classList.add('loading')
+
+    const timer = setInterval(() => {
+      if (!this.state.searchig) {
+        clearInterval(timer)
+        card.classList.remove('loading');
       }
     }, 1000);
   }

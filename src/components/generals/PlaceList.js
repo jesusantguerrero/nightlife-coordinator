@@ -11,7 +11,7 @@ export default class PlaceList extends Component {
   }
   
   renderItem(item, empty) {
-    return <div className="card w-90 outline-dark" key={item.id}>
+    return <div className="card w-100 outline-dark" key={item.id}>
         <div className="card-body row">
           <div className="col-md-3">
             <div className="image_wrapper">
@@ -28,7 +28,9 @@ export default class PlaceList extends Component {
             <p className="card-text"> { item.phone }</p>
           </div>
           <div className="col-md-3">
-            <button className={this.classes(item)} onClick={ this.props.itemClicked } name={ item.id }> Going: { this.countUsers(item)} </button>
+            <button className={this.classes(item)} onClick={this.props.itemClicked} name={item.id}>
+               Going: {this.countUsers(item)}
+            </button>
           </div>
         </div>
       </div>
