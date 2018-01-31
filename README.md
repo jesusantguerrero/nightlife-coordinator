@@ -1,6 +1,9 @@
 # Nightlife coordinator App
 
-It is a web application built with nodejs, mongodb, express and react that allow users to see the bars in their area and see how many people are going and if he ants to go.
+![nightlife-coordinator](src/assets/img/my_bars.png)
+It is a web application built with nodejs, mongodb, express and react fusion that allow users to see the bars in their area and see how many people are going and add theirselves to the list.
+
+The results are powered by yelp.
 
 [freeCodeCamp nightlife coordinator requirements](https://www.freecodecamp.org/challenges/build-a-nightlife-coordination-app)
 
