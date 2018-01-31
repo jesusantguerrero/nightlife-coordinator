@@ -42,7 +42,7 @@ class App extends Component {
             <PlaceList places={this.state.places} itemClicked={this._handleItemClick} user={this.state.user}/>
           )}
           { this.state.mode === 'my-bars' && (
-            <PlaceList places={this.state.userPlaces} itemClicked={this._handleItemClick} user={this.state.user}/>
+            <PlaceList places={this.state.userPlaces} itemClicked={this._handleAuthItemClick} user={this.state.user}/>
           )}
           
           { this.state.mode === 'about' && (
@@ -108,16 +108,29 @@ class App extends Component {
     }
   }
 
-  _addUserToPlace = (e) => {
-    const {user , searchValue} = this.state;
+  _handleAuthItemClick = (e) => {
+    this._addUserToPlace(e, 'auth')
+  }
+
+  _addUserToPlace = (e, mode) => {
+    const {user , searchValue, places, userPlaces } = this.state;
+    const item = (mode) ? userPlaces[e.target.name] : places[e.target.name]; // the index
+
     const data = {
       location: searchValue,
       userId: user.id,
+      item: {
+        name: item.name,
+        image_url: item.image_url,
+        rating: item.rating,
+        location: item.location,
+        phone: item.phone
+      }
     };
     const form = `data=${JSON.stringify(data)}`;
 
     this.loadCard(e);
-    axios.post(`/places/add/${e.target.name}`, form)
+    axios.post(`/places/add/${item.id}`, form)
       .then(() => {
         this._searchPlaces();
         this._getUserPlaces();
@@ -148,7 +161,7 @@ class App extends Component {
         button.innerHTML= `<i class="material-icons">${strong ? 'hdr_strong' : 'hdr_weak'}</i>`;
       } else {
         clearInterval(timer)
-        button.innerHTML= (e) ? '' : '<i class="material-icons">search</i>';
+        button.innerHTML= '<i class="material-icons">search</i>';
       }
     }, 1000);
   }

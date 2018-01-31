@@ -7,6 +7,11 @@ class Places {
       id: String,
       searchId: mongoose.Schema.Types.ObjectId,
       users: Array,
+      name: String,
+      image_url: String,
+      rating: Number,
+      location: Object,
+      phone: String,
       created: { type: Date, default: Date.now() }
     }));
   }
@@ -14,24 +19,24 @@ class Places {
   createOrAdd(place, userId) {
     return this.model.findOne({ id: place.id }).then((foundPlace) => {
       if (foundPlace) {
-        return (foundPlace.users.includes(userId)) ? this.removeUser(place.id, userId) : this.addUser(place.id, userId);
+        return (foundPlace.users.includes(userId)) ? this.removeUser(place.id, userId) : this.addUser(place, userId);
       }
-      return this.createPlace(place.id, place.searchId, userId);
+      return this.createPlace(place, userId);
     })
   }
 
-  createPlace(id, searchId, userId) {
-    return this.model.create({ id: id, searchId: searchId, users: [userId] })
+  createPlace(place, userId) {
+    return this.model.create({ ...place, users: [userId] })
   }
 
   deletePlace(id) {
     return this.model.remove({ id: id })
   }
 
-  addUser(id, userId) {
-    return this.model.findOne({ id: id }).then((place) => {
-      place.users.push(userId);
-      return this.model.findOneAndUpdate({ id: id }, { users: place.users })
+  addUser(place, userId) {
+    return this.model.findOne({ id: place.id }).then((foundPlace) => {
+      foundPlace.users.push(userId);
+      return this.model.findOneAndUpdate({ id: id }, { users: foundPlace.users, ...place })
     })
   }
 

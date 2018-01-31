@@ -10,7 +10,6 @@ router.get('/search', function(req, res, next) {
   const location = req.query.location || 'La Romana';
   
   Searches.findOrCreate(location.toLowerCase()).then((search) => {
-
     client.search({ location: location })
     .then((result) => {
       ThePlaces = result.jsonBody.businesses;
@@ -30,9 +29,8 @@ router.get('/search', function(req, res, next) {
     })
 
     .catch((err) => {
-      res.json(500, err)
+      res.status(500).json(err)
     })
-
   });
 
 });
@@ -50,17 +48,20 @@ router.get('/user/:userId', (req, res) => {
 })
 
 router.post('/add/:placeId', (req, res) => {
-  const data = JSON.parse(req.body.data);
-  Searches.model.findOne({ location: data.location.toLowerCase() }).then((search) => {
-    const place = {
-      id: req.params.placeId,
-      searchId: search._id,
-    }
+    const data = JSON.parse(req.body.data);
+    Searches.model.findOne({ location: data.location.toLowerCase() }).then((search) => {
+      const place = {
+        id: req.params.placeId,
+        searchId: search._id,
+        ...data.item
+      }
 
-    Places.createOrAdd(place, data.userId).then((result) => {
-      res.end();
-    });
-  })
+      Places.createOrAdd(place, data.userId).then((result) => {
+        res.end();
+      }).catch((err) => {
+        res.json(err);
+      });
+    })
 });
 
 module.exports = router;

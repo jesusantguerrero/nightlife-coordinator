@@ -10,7 +10,7 @@ export default class PlaceList extends Component {
     )
   }
   
-  renderItem(item, empty) {
+  renderItem(item, index) {
     return <div className="card w-100 outline-dark" key={item.id}>
         <div className="card-body row">
           <div className="col-md-3">
@@ -28,7 +28,7 @@ export default class PlaceList extends Component {
             <p className="card-text"> { item.phone }</p>
           </div>
           <div className="col-md-3">
-            <button className={this.classes(item)} onClick={this.props.itemClicked} name={item.id}>
+            <button className={this.classes(item)} onClick={this.props.itemClicked} name={index}>
                Going: {this.countUsers(item)}
             </button>
           </div>
@@ -37,7 +37,7 @@ export default class PlaceList extends Component {
   }
 
   renderList(props) {
-    const list = this.props.places.map(item => this.renderItem(item));
+    const list = this.props.places.map((item, index) => this.renderItem(item, index));
     if (list.length > 0) {
       return (<div className="place-list-container">{list}</div>);
     }
@@ -53,6 +53,7 @@ export default class PlaceList extends Component {
   }
 
   countStars(rating) {
+    rating = rating || 1;
     const stars = [];
     for (let i = 0; i < Math.floor(rating); i+= 1) {
       stars.push(<i className="material-icons text-warning"> star </i>)
